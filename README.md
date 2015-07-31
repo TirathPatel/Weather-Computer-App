@@ -17,5 +17,7 @@ Includes information such as:
   
   
 TO DO LIST:
+
   Add autolocation feature
+  
   Improve picture quality
