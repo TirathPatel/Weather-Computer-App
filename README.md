@@ -16,8 +16,4 @@ Includes information such as:
   description of the weather
   
   
-TO DO LIST:
-
-  Add autolocation feature
-  
-  Improve picture quality
+TO DO LIST: Add autolocation feature, Improve picture quality, fix documentation, improve on variable and method names
