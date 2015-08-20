@@ -14,3 +14,6 @@ Includes information such as:
   temperature low,
   wind speed and
   description of the weather
+  
+  
+TO DO LIST: Add autolocation feature, Improve picture quality, fix documentation, improve on variable and method names
