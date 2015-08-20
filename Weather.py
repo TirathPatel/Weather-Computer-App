@@ -1,19 +1,29 @@
 from pprint import pprint
 import requests
 import pygame
+import json
 
-#initialization
+#initialization of window and pygame
 pygame.init()
 screen_length = 450
 screen_height = 300
 screen = pygame.display.set_mode((screen_length,screen_height))
-pygame.display.set_caption('TORONTO.weather')
+pygame.display.set_caption('Current.weather')
 
-#get data from API
-w = requests.get("http://api.openweathermap.org/data/2.5/weather?q=Toronto&units=metric")
+#get location from website
+location_url = 'http://freegeoip.net/json'
+location_request = requests.get(location_url)
+location_json = json.loads(location_request.text)
+lat = location_json['latitude']
+lon = location_json['longitude']
+
+#get data from OPENWEATHERMAP API
+weather_url = "http://api.openweathermap.org/data/2.5/weather?lat=" + str(lat) + "&lon=" + str(lon) + "&units=metric"
+w = requests.get(weather_url)
 weather = w.json()
 
-#weather specifics
+
+#variables that store weather specifics
 cityName = weather['name']
 temp_current = weather['main']['temp']
 temp_min = weather['main']['temp_min']
@@ -29,15 +39,8 @@ black = (0,0,0)
 text_font_large = pygame.font.Font(None,70)
 text_font_small = pygame.font.Font(None,30)
 
-print "City name: " + cityName
-print "Current temp: " + str(temp_current)
-print "Max temp: " + str(temp_max)
-print "Min temp: " + str(temp_min)
-print "Description: " + description
-print "Type: " + weather_type
-print "Wind: " + str(wind) + "km/h"
-print type(picture_code)
 
+#initialization of all images
 clearskyday = pygame.image.load('clearskyday.jpg')
 clearskynight = pygame.image.load("clearkskynight.jpg")
 fewcloudsday = pygame.image.load("fewcloudsday.jpg")
@@ -54,6 +57,7 @@ snowday = pygame.image.load("snowday.jpg")
 snownight = pygame.image.load("snownight.jpg")
 mist = pygame.image.load("mist.jpg")
 
+#matching of images and API code
 imageDictionary = {
 	"01d": clearskyday,
 	"01n": clearskynight,
@@ -79,6 +83,13 @@ imageDictionary = {
 for x in imageDictionary:
 	imageDictionary[x] = pygame.transform.scale(imageDictionary[x],(450,300))
 
+
+"""
+GENERAL FUNCTION DESCRIPTION  
+____________________________
+All functions display the corresponding data on the screen in a particular place.
+The names of the function give a general idea of what will be executed.
+"""
 def mainTemp(temp_current):
 	text = text_font_large.render(str(temp_current) + u"\u00b0", 1, white)
 	textPos = (10, 10)
