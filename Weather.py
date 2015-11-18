@@ -18,7 +18,9 @@ lat = location_json['latitude']
 lon = location_json['longitude']
 
 #get data from OPENWEATHERMAP API
-weather_url = "http://api.openweathermap.org/data/2.5/weather?lat=" + str(lat) + "&lon=" + str(lon) + "&units=metric"
+api_key = "baa52f604cd5a7a0162fafcbc80e677c"
+weather_url = "http://api.openweathermap.org/data/2.5/weather?lat=" + str(lat) + "&lon=" + str(lon) \
+	+ "&units=metric&APPID=" + api_key
 w = requests.get(weather_url)
 weather = w.json()
 
@@ -85,7 +87,7 @@ for x in imageDictionary:
 
 
 """
-GENERAL FUNCTION DESCRIPTION  
+GENERAL FUNCTION DESCRIPTION 
 ____________________________
 All functions display the corresponding data on the screen in a particular place.
 The names of the function give a general idea of what will be executed.
